@@ -56,23 +56,29 @@ function playGame() {
     playRound(getHumanChoice(), getComputerChoice());
     playRound(getHumanChoice(), getComputerChoice());
 
-    if (humanScore == computerScore) {
-        return console.log(`We have a draw!
-        You: ${humanScore}
-        Computer: ${computerScore}
-        Draw: ${drawScore}`);
 
-    } else if (humanScore > computerScore) {
-        return console.log(`You win! :D
-        You: ${humanScore}
-        Computer: ${computerScore}
-        Draw: ${drawScore}`);
+    function calcWin() {
+        if (humanScore == computerScore) {
+            return `We have a draw!
+            You: ${humanScore}
+            Computer: ${computerScore}
+            Draw: ${drawScore}`;
 
-    } else if (humanScore < computerScore)
-        return console.log(`You lose! :(
-        You: ${humanScore}
-        Computer: ${computerScore}
-        Draw: ${drawScore}`);
+        } else if (humanScore > computerScore) {
+            return `You win! :D
+            You: ${humanScore}
+            Computer: ${computerScore}
+            Draw: ${drawScore}`;
+
+        } else if (humanScore < computerScore)
+            return `You lose! :(
+            You: ${humanScore}
+            Computer: ${computerScore}
+            Draw: ${drawScore}`;
+    }
+
+    console.log(calcWin());
+    alert(calcWin());
 }
 
 playGame();
