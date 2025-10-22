@@ -106,12 +106,14 @@ function playGame() {
     // console.log(calcWin());
     // alert(calcWin());
 
+    //adds addEventListener click to every tool
     buttons.forEach(btn => btn.addEventListener("click", (clickEvent) => {
         console.log(clickEvent.target.textContent);
         playRound(clickEvent.target.textContent, getComputerChoice())
     }
     ));
 
+    //retryButton adds tool back and removes itself
     retryButton.addEventListener("click", () => {
         buttons.forEach(btn => body.prepend(btn));
         body.removeChild(retryButton);
