@@ -9,10 +9,12 @@ retryButton.textContent = "Play Again";
 
 const body = document.querySelector("body");
 
+let humanScore = 0;
+let computerScore = 0;
+let drawScore = 0;
+
 function playGame() {
-    let humanScore = 0;
-    let computerScore = 0;
-    let drawScore = 0;
+
 
 
     function getComputerChoice() {
@@ -123,4 +125,3 @@ function playGame() {
 }
 
 playGame();
-
