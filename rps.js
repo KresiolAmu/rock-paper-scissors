@@ -1,11 +1,19 @@
 console.log('Hello World!')
 
+const buttons = document.querySelectorAll("button");
 
+const resultArea = document.querySelector(".result");
+
+const retryButton = document.createElement("button");
+retryButton.textContent = "Play Again";
+
+const body = document.querySelector("body");
 
 function playGame() {
     let humanScore = 0;
     let computerScore = 0;
     let drawScore = 0;
+
 
     function getComputerChoice() {
         let rpsRandom = Math.floor(Math.random() * 100) + 1;
@@ -20,10 +28,10 @@ function playGame() {
         }
     }
 
-    function getHumanChoice() {
-        let humanChoice = prompt(`Pick between Rock / Paper / Scissors: `);
-        return humanChoice;
-    }
+    // function getHumanChoice() {
+    //     let humanChoice = prompt(`Pick between Rock / Paper / Scissors: `);
+    //     return humanChoice;
+    // }
 
     function playRound(humanChoice, computerChoice) {
         humanChoice = humanChoice.toLowerCase();
@@ -32,14 +40,16 @@ function playGame() {
             humanChoice === `scissors` && computerChoice === `paper` ||
             humanChoice === `paper` && computerChoice === `rock`) {
 
-            console.log(`Your ${humanChoice} beats computer's ${computerChoice}.`);
+            // div contains result text
+            resultArea.textContent = `You Win! Your ${humanChoice} beats computer's ${computerChoice}.`;
             humanScore++;
+            console.log(humanScore);
 
         } else if (computerChoice === `rock` && humanChoice === `scissors` ||
             computerChoice === `scissors` && humanChoice === `paper` ||
             computerChoice === `paper` && humanChoice === `rock`) {
 
-            console.log(`Computer's ${computerChoice} beats your ${humanChoice}.`);
+            resultArea.textContent = `You Lose! Computer's ${computerChoice} beats your ${humanChoice}.`;
             computerScore++;
 
         } else if (computerChoice === humanChoice) {
@@ -49,36 +59,65 @@ function playGame() {
         } else {
             console.log(`That is not a valid option`);
         }
+
+        calcWin();
     }
-    playRound(getHumanChoice(), getComputerChoice());
-    playRound(getHumanChoice(), getComputerChoice());
-    playRound(getHumanChoice(), getComputerChoice());
-    playRound(getHumanChoice(), getComputerChoice());
-    playRound(getHumanChoice(), getComputerChoice());
+
+
+    // playRound(getHumanChoice(), getComputerChoice());
+    // playRound(getHumanChoice(), getComputerChoice());
+    // playRound(getHumanChoice(), getComputerChoice());
+    // playRound(getHumanChoice(), getComputerChoice());
+    // playRound(getHumanChoice(), getComputerChoice());
 
 
     function calcWin() {
-        if (humanScore == computerScore) {
-            return `We have a draw!
+        if (humanScore == 5) {
+            resultArea.textContent = `You win! :D
             You: ${humanScore}
             Computer: ${computerScore}
             Draw: ${drawScore}`;
+            body.appendChild(retryButton);
+            removeToolButton();
+            humanScore = 0;
+            computerScore = 0;
+            drawScore = 0;
+            return;
 
-        } else if (humanScore > computerScore) {
-            return `You win! :D
-            You: ${humanScore}
-            Computer: ${computerScore}
-            Draw: ${drawScore}`;
 
-        } else if (humanScore < computerScore)
-            return `You lose! :(
+        } else if (computerScore == 5) {
+            resultArea.textContent = `You lose! :(
             You: ${humanScore}
             Computer: ${computerScore}
             Draw: ${drawScore}`;
+            body.appendChild(retryButton);
+            removeToolButton();
+            humanScore = 0;
+            computerScore = 0;
+            drawScore = 0;
+            return;
+
+        }
+        // else return resultArea.textContent = `ERROR, in CalcWin()`;
     }
 
-    console.log(calcWin());
-    alert(calcWin());
+    const removeToolButton = () => buttons.forEach(btn => body.removeChild(btn));
+
+    // console.log(calcWin());
+    // alert(calcWin());
+
+    buttons.forEach(btn => btn.addEventListener("click", (clickEvent) => {
+        console.log(clickEvent.target.textContent);
+        playRound(clickEvent.target.textContent, getComputerChoice())
+    }
+    ));
+
+    retryButton.addEventListener("click", () => {
+        buttons.forEach(btn => body.prepend(btn));
+        body.removeChild(retryButton);
+        resultArea.textContent = "";
+    });
+
 }
 
 playGame();
